@@ -5,7 +5,7 @@ import {
   //Button,
   View,
   Text,
-  TouchableOpacity,
+  Alert,
   FlatList
 } from 'react-native';
 import Header from "./components/header";
@@ -29,12 +29,23 @@ function App () {
  };
 
  const submitHandler = (text) => {
-   setTodos((prevTodos) => {
-     return [
-       { text: text, key: Math.random().toString() },
-       ...prevTodos
-     ]
-   })
+   if(text.length > 3){
+     if( !todos.find( (element) => {
+       return element.text == text;
+      })){ //add only if new ToDo does not exist already
+       setTodos((prevTodos) => {
+         return [
+           { text: text, key: Math.random().toString() },
+           ...prevTodos
+         ]
+       })
+     }
+     else{
+       console.log(text + " already exists...");
+       Alert.alert("Oops", "ToDo must be 4 chars long and must not already exist");
+     }
+   }
+  
  }
 
   return (
