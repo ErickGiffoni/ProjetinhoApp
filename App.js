@@ -10,49 +10,39 @@ import React, { useState } from 'react';
 import {
   TextInput,
   StyleSheet,
-  Button,
+  //Button,
   View,
   Text,
   TouchableOpacity,
   FlatList
 } from 'react-native';
+import Header from "./components/header"
+
 
 function App () {
 
-  const [name, setName] = useState("Erick Giffoni");
-  const [age, setAge] = useState(20);
-  const [people, setPeople] = useState([
-    {name: "Erick", age: 20, key: 1},
-    {name: "Joice", age: 10, key: 2},
-    {name: "Luan", age: 5, key: 3},
-  ]);
-
-  const clickHandler = () => {
-    newName = "Josh";
-    newAge = 30;
-    //data = {name: newName, age: newAge};
-
-    setName(newName);
-    setAge(newAge);
-    //setPerson(data);
-  }
-
-  const pressHandler = (key) => {
-    console.log(key);
-    setPeople( (prevPeople) => {
-      return prevPeople.filter( person => person.key != key);
-    })
-  }
+ const [todos, setTodos] = useState([
+   { text: "buy coffee", key: "1"},
+   { text: "wash car", key: "2"},
+   { text: "feed dog", key: "3"},
+   { text: "get a shower", key: "4"},
+   { text: "date a girl", key: "5"},
+ ]) 
 
   return (
     <View style={styles.container}>
-      <FlatList style={styles.people}
-        data={people}
-        renderItem={ ({item}) => (
-          <TouchableOpacity onPress={ () => {pressHandler(item.key)}}>
-            <Text style={styles.person}>Name: {item.name} -- Age: {item.age}</Text>
-          </TouchableOpacity>
-        ) } />
+      <Header />
+      <View style={styles.content}>
+        {/* todo form */}
+        <View style={styles.list}>
+          <FlatList 
+            data={todos}
+            renderItem={ ({item}) => (
+              <Text>{item.text}</Text>
+            )}
+          />
+        </View>
+      </View>    
     </View>
   );
 }
@@ -60,9 +50,16 @@ function App () {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: "#294D4E",
+    //alignItems: "center",
+    //justifyContent: "center",
+    //padding: 40,
+  },
+  content: {
+    padding: 45,
+  },
+  list: {
+    marginTop: 20,
   },
   people: {
     flex: 1,
