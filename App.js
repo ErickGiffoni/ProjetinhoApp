@@ -1,11 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React, { useState } from 'react';
 import {
   TextInput,
@@ -16,8 +8,8 @@ import {
   TouchableOpacity,
   FlatList
 } from 'react-native';
-import Header from "./components/header"
-
+import Header from "./components/header";
+import TodoItem from "./components/todoItem";
 
 function App () {
 
@@ -27,7 +19,13 @@ function App () {
    { text: "feed dog", key: "3"},
    { text: "get a shower", key: "4"},
    { text: "date a girl", key: "5"},
- ]) 
+ ])
+ 
+ const pressHandler = (key) => {
+    setTodos( (prevTodos) => {
+      return prevTodos.filter(todo => todo.key != key);
+    })
+ }
 
   return (
     <View style={styles.container}>
@@ -38,7 +36,7 @@ function App () {
           <FlatList 
             data={todos}
             renderItem={ ({item}) => (
-              <Text>{item.text}</Text>
+              <TodoItem item={item} pressHandler={pressHandler} />
             )}
           />
         </View>
